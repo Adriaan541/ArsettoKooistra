@@ -12,8 +12,19 @@
 
 ACarPawn::ACarPawn()
 {
-	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring arm component"));
+	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
 	SpringArmComponent->SetupAttachment(GetMesh());
+	SpringArmComponent->TargetArmLength = 500.0f;
+	SpringArmComponent->SocketOffset.Z = 180.0f;
+	SpringArmComponent->bInheritPitch = false;
+	SpringArmComponent->bInheritRoll = false;
+	SpringArmComponent->bEnableCameraRotationLag = true;
+	SpringArmComponent->CameraLagSpeed = 1.0f;
+	SpringArmComponent->CameraLagMaxDistance = 100.0f;
+	SpringArmComponent->bAutoActivate = true;
+	
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
+	CameraComponent->SetupAttachment(SpringArmComponent);
 
 	GetMesh()->SetSimulatePhysics(true);
 	GetMesh()->SetCollisionProfileName(FName("Car"));
@@ -21,11 +32,11 @@ ACarPawn::ACarPawn()
 	ChaosWheeledVehicleMovementComponent = CastChecked<UChaosWheeledVehicleMovementComponent>(GetVehicleMovement());
 }
 
-void ACarPawn::SetupPlayerInputComponent(class UInputComponent* InputComponent)
+void ACarPawn::SetupPlayerInputComponent(UInputComponent* Input)
 {
-	Super::SetupPlayerInputComponent(InputComponent);
+	Super::SetupPlayerInputComponent(Input);
 
-	if (UEnhancedInputComponent* EIC = Cast<UEnhancedInputComponent>(InputComponent))
+	if (UEnhancedInputComponent* EIC = Cast<UEnhancedInputComponent>(Input))
 	{
 		EIC->BindAction(HandbrakeAction, ETriggerEvent::Started, this, &ACarPawn::StartHandbrake);
 		EIC->BindAction(HandbrakeAction, ETriggerEvent::Completed, this, &ACarPawn::StopHandbrake);
@@ -40,30 +51,30 @@ void ACarPawn::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 	}
 }
 
-void ACarPawn::StartHandbrake(const FInputActionValue& value)
+void ACarPawn::StartHandbrake(const FInputActionValue& Value)
 {
 }
 
-void ACarPawn::StopHandbrake(const FInputActionValue& value)
+void ACarPawn::StopHandbrake(const FInputActionValue& Value)
 {
 }
 
-void ACarPawn::GearUpChange(const FInputActionValue& value)
+void ACarPawn::GearUpChange(const FInputActionValue& Value)
 {
 }
 
-void ACarPawn::GearDownChange(const FInputActionValue& value)
+void ACarPawn::GearDownChange(const FInputActionValue& Value)
 {
 }
 
-void ACarPawn::Throttle(const FInputActionValue& value)
+void ACarPawn::Throttle(const FInputActionValue& Value)
 {
 }
 
-void ACarPawn::Brake(const FInputActionValue& value)
+void ACarPawn::Brake(const FInputActionValue& Value)
 {
 }
 
-void ACarPawn::CameraLook(const FInputActionValue& value)
+void ACarPawn::CameraLook(const FInputActionValue& Value)
 {
 }

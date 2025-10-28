@@ -20,23 +20,23 @@ class ARSETTOKOOISTRA_API ACarPawn : public AWheeledVehiclePawn
 	GENERATED_BODY()
 
 protected:
-	void StartHandbrake(const FInputActionValue& value);
-	void StopHandbrake(const FInputActionValue& value);
+	void StartHandbrake(const FInputActionValue& Value);
+	void StopHandbrake(const FInputActionValue& Value);
 
-	void GearUpChange(const FInputActionValue& value);
-	void GearDownChange(const FInputActionValue& value);
+	void GearUpChange(const FInputActionValue& Value);
+	void GearDownChange(const FInputActionValue& Value);
 
-	void Throttle(const FInputActionValue& value);
+	void Throttle(const FInputActionValue& Value);
 
-	void Brake(const FInputActionValue& value);
+	void Brake(const FInputActionValue& Value);
 
-	void CameraLook(const FInputActionValue& value);
+	void CameraLook(const FInputActionValue& Value);
 	
 
 public:
 	ACarPawn();
 
-	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent* Input) override;
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputMappingContext* DefaultMappingContext;
